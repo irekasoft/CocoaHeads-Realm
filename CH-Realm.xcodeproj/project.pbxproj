@@ -16,6 +16,7 @@
 		A35E5A5F1C6B35F500D0AA33 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A35E5A5D1C6B35F500D0AA33 /* LaunchScreen.storyboard */; };
 		A35E5A6A1C6B35F500D0AA33 /* CH_RealmUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35E5A691C6B35F500D0AA33 /* CH_RealmUITests.swift */; };
 		A35E5A811C6E597900D0AA33 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35E5A801C6E597900D0AA33 /* Item.swift */; };
+		A35E5A851C6E73F600D0AA33 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = A35E5A841C6E73F600D0AA33 /* README.md */; };
 		B1D891550CE2756D6303FAF6 /* Pods_CH_RealmUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEBADC8B67F659331843777B /* Pods_CH_RealmUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +45,7 @@
 		A35E5A691C6B35F500D0AA33 /* CH_RealmUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CH_RealmUITests.swift; sourceTree = "<group>"; };
 		A35E5A6B1C6B35F500D0AA33 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A35E5A801C6E597900D0AA33 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		A35E5A841C6E73F600D0AA33 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B4B0D6877767866B4090442B /* Pods-CH-RealmUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CH-RealmUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CH-RealmUITests/Pods-CH-RealmUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C34F258579D2F4F4548203B1 /* Pods-CH-RealmUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CH-RealmUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CH-RealmUITests/Pods-CH-RealmUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		DEDC42B4650B4F84CC9DE3AA /* Pods_CH_Realm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CH_Realm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -84,6 +86,7 @@
 		A35E5A461C6B35F500D0AA33 = {
 			isa = PBXGroup;
 			children = (
+				A35E5A841C6E73F600D0AA33 /* README.md */,
 				A35E5A511C6B35F500D0AA33 /* CH-Realm */,
 				A35E5A681C6B35F500D0AA33 /* CH-RealmUITests */,
 				A35E5A501C6B35F500D0AA33 /* Products */,
@@ -320,6 +323,7 @@
 			files = (
 				A35E5A811C6E597900D0AA33 /* Item.swift in Sources */,
 				A35E5A571C6B35F500D0AA33 /* DetailViewController.swift in Sources */,
+				A35E5A851C6E73F600D0AA33 /* README.md in Sources */,
 				A35E5A551C6B35F500D0AA33 /* MasterViewController.swift in Sources */,
 				A35E5A531C6B35F500D0AA33 /* AppDelegate.swift in Sources */,
 			);
