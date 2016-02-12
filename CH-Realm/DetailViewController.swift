@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import RealmSwift
 
 class DetailViewController: UIViewController {
 
   @IBOutlet weak var detailDescriptionLabel: UILabel!
 
+  var item : Item!
 
   var detailItem: AnyObject? {
     didSet {
@@ -22,10 +24,10 @@ class DetailViewController: UIViewController {
 
   func configureView() {
     // Update the user interface for the detail item.
-    if let detail = self.detailItem {
-        if let label = self.detailDescriptionLabel {
-            label.text = detail.description
-        }
+    if let detail = self.item {
+
+      detailDescriptionLabel.text = self.item.name
+
     }
   }
 
@@ -33,6 +35,14 @@ class DetailViewController: UIViewController {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
     self.configureView()
+    
+    let editButton = UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: "edit")
+    self.navigationItem.rightBarButtonItem = editButton
+    
+  }
+  
+  func edit (){
+    
   }
 
   override func didReceiveMemoryWarning() {

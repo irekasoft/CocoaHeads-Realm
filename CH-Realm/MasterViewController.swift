@@ -7,15 +7,25 @@
 //
 
 import UIKit
+import Realm
 
 class MasterViewController: UITableViewController {
 
   var detailViewController: DetailViewController? = nil
-  var objects = [AnyObject]()
 
 
+  var items: RLMResults {
+    get {
+      let sortProperties = [RLMSortDescriptor(property: "name", ascending:true)]
+      return Item.allObjects().sortedResultsUsingDescriptors(sortProperties)
+    }
+  }
+  let realm = RLMRealm.defaultRealm()
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    title = "Stuff"
+    
     // Do any additional setup after loading the view, typically from a nib.
     self.navigationItem.leftBarButtonItem = self.editButtonItem()
 
@@ -38,9 +48,48 @@ class MasterViewController: UITableViewController {
   }
 
   func insertNewObject(sender: AnyObject) {
-    objects.insert(NSDate(), atIndex: 0)
-    let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-    self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+    let alert = UIAlertController.init(title: "What it is?", message: "", preferredStyle: .Alert)
+    
+    let action1 = UIAlertAction.init(title: "Cancel", style: .Cancel) { (UIAlertAction) -> Void in
+      
+    }
+    
+    alert.addTextFieldWithConfigurationHandler { (UITextField) -> Void in
+      
+    }
+    
+    alert.addAction(action1)
+    
+    let action2 = UIAlertAction.init(title: "OK", style: .Default) { (UIAlertAction) -> Void in
+      
+      let tf_name = alert.textFields?.first as UITextField!
+      print("hi \(tf_name.text)")
+      let realm = RLMRealm.defaultRealm()
+      let newItem = Item()
+      
+      do {
+        try realm.transactionWithBlock(){
+          realm.addObject(newItem)
+          newItem.datePurchased = NSDate()
+          newItem.name = tf_name.text!
+          newItem.no_id = Int(NSDate.timeIntervalSinceReferenceDate())
+
+        }
+        
+      } catch {
+      }
+      
+      // REFLECT TO THE UI
+      self.tableView.reloadData()
+
+      
+    }
+    
+    alert.addAction(action2)
+    
+    
+    presentViewController(alert, animated: true) { () -> Void in}
+    
   }
 
   // MARK: - Segues
@@ -48,9 +97,14 @@ class MasterViewController: UITableViewController {
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if segue.identifier == "showDetail" {
         if let indexPath = self.tableView.indexPathForSelectedRow {
-            let object = objects[indexPath.row] as! NSDate
+          
+          
+            let item = items.objectAtIndex(UInt(indexPath.row)) as! Item
+          
             let controller = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController
-            controller.detailItem = object
+            controller.item = item
+          
+          
             controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
             controller.navigationItem.leftItemsSupplementBackButton = true
         }
@@ -64,14 +118,16 @@ class MasterViewController: UITableViewController {
   }
 
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return objects.count
+    return Int(items.count)
   }
 
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
 
-    let object = objects[indexPath.row] as! NSDate
-    cell.textLabel!.text = object.description
+    let index = UInt(indexPath.row)
+    let item = items.objectAtIndex(index) as! Item
+    
+    cell.textLabel!.text = item.name
     return cell
   }
 
@@ -82,8 +138,26 @@ class MasterViewController: UITableViewController {
 
   override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
     if editingStyle == .Delete {
-        objects.removeAtIndex(indexPath.row)
+      
+      // DELETING THE DATABASE
+      let index = UInt(indexPath.row)
+      let item = items.objectAtIndex(index) as! Item
+      let realm = RLMRealm.defaultRealm()
+      
+      do {
+        try realm.transactionWithBlock(){
+          realm.deleteObject(item)
+          
+        }
+      } catch{}
+      
+      // REFLECT TO THE UI
+      UIView.animateWithDuration(0.5, animations: { () -> Void in
         tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        }, completion: { (Bool) -> Void in
+          tableView.reloadData()
+      })
+    
     } else if editingStyle == .Insert {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
     }
